@@ -4,15 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.english_personal_training.databinding.ItemLayoutBinding
+import com.example.english_personal_training.data.Item
+import com.example.english_personal_training.data.ItemViewModel
 
-class MyAdapter(private val itemList: MutableList<Item>) : RecyclerView.Adapter<MyAdapter.ItemViewHolder>() {
+class MyAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapter<MyAdapter.ItemViewHolder>() {
+
+    private lateinit var itemViewModel: ItemViewModel
 
     init {
         setHasStableIds(true)
     }
 
     override fun getItemId(position: Int): Long {
-        return itemList[position].hashCode().toLong()
+        return itemList[position].id.toLong()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -31,13 +35,29 @@ class MyAdapter(private val itemList: MutableList<Item>) : RecyclerView.Adapter<
             holder.tagTextView.text = holder.tagEditTextView.text
             holder.wordTextView.text = holder.wordEditTextView.text
             holder.meaningTextView.text = holder.meaningEditTextView.text
+
+            val currentItem = itemList[position]
+            val updatedItem = Item(
+                id = currentItem.id,
+                tag = holder.tagEditTextView.text.toString(),
+                word = holder.wordEditTextView.text.toString(),
+                meaning = holder.meaningEditTextView.text.toString()
+            )
+            itemViewModel.update(updatedItem)
         }
+
         holder.binding.deleteButton.setOnClickListener {
-            removeItem(position)
+            val currentItem = itemList[position]
+            itemViewModel.delete(currentItem)
         }
+
     }
 
     override fun getItemCount(): Int = itemList.size
+
+    fun setItemViewModel(itemViewModel: ItemViewModel) {
+        this.itemViewModel = itemViewModel
+    }
 
     inner class ItemViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -80,9 +100,10 @@ class MyAdapter(private val itemList: MutableList<Item>) : RecyclerView.Adapter<
         }
     }
 
-    private fun removeItem(position: Int) {
-        itemList.removeAt(position)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, itemList.size)
+    // MainActivity에서 adapter 업데이트할 때 쓰는 함수
+    fun updateItems(newItems: List<Item>) {
+        itemList = newItems.toMutableList()
+        notifyDataSetChanged()
     }
 }
+

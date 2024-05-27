@@ -2,43 +2,49 @@ package com.example.english_personal_training
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.english_personal_training.data.Item
+import com.example.english_personal_training.data.ItemViewModel
+import com.example.english_personal_training.data.ItemViewModelFactory
 import com.example.english_personal_training.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MyAdapter
-    private lateinit var itemList: MutableList<Item>
+    private lateinit var itemViewModel: ItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize RecyclerView
+        // RecyclerView 초기화
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // Initialize data
-        itemList = ArrayList()
-        // Add sample items
-        itemList.add(Item("Tag1", "Word1", "Meaning1"))
-        itemList.add(Item("Tag2", "Word2", "Meaning2"))
-        itemList.add(Item("Tag3", "Word3", "Meaning3"))
-
-        // Initialize adapter
-        adapter = MyAdapter(itemList)
+        adapter = MyAdapter(mutableListOf())
         binding.recyclerView.adapter = adapter
 
-        // Set up add button click listener
+        // ViewModelProvider로 itemViewModel 초기화
+        val factory = ItemViewModelFactory(application)
+        itemViewModel = ViewModelProvider(this, factory).get(ItemViewModel::class.java)
+
+        // item 계속 관찰하기(변화시 adapter 업데이트)
+        itemViewModel.allItems.observe(this, { items ->
+            items?.let { adapter.updateItems(it) }
+        })
+
+        // MyAdapter로 itemViewModel 전달
+        adapter.setItemViewModel(itemViewModel)
+
+        // 등록 버튼 listener 처리
         binding.addButton.setOnClickListener {
             val tag = binding.addTagEditText.text.toString()
             val word = binding.addWordEditText.text.toString()
             val meaning = binding.addMeaningEditText.text.toString()
 
             if (tag.isNotEmpty() && word.isNotEmpty() && meaning.isNotEmpty()) {
-                val newItem = Item(tag, word, meaning)
-                itemList.add(newItem)
-                adapter.notifyItemInserted(itemList.size - 1)
+                val newItem = Item(tag = tag, word = word, meaning = meaning)
+                itemViewModel.insert(newItem)
 
                 // Clear the input fields
                 binding.addTagEditText.text.clear()
@@ -48,3 +54,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
