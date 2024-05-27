@@ -7,13 +7,98 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_word_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="8dp"
+            android:text="단어목록"
+            android:textSize="20sp"
+
+            style="@style/colorEx"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_tag"
+            android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="0.8"
+            android:layout_height="wrap_content"
+            android:text="TAG"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/button_word"
+            app:layout_constraintTop_toBottomOf="@id/button_word_list"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/black"
+            android:enabled="false"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_word"
+            android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="1.2"
+            android:layout_height="wrap_content"
+            android:text="WORD"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/button_tag"
+            app:layout_constraintEnd_toStartOf="@id/button_meaning"
+            app:layout_constraintTop_toBottomOf="@id/button_word_list"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/black"
+            android:enabled="false"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_meaning"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_weight="1.2"
+            android:text="뜻"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/button_word"
+            app:layout_constraintEnd_toStartOf="@id/button_add_remove"
+            app:layout_constraintTop_toBottomOf="@id/button_word_list"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/black"
+            android:enabled="false"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_add_remove"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_weight="1"
+            android:text="Button"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/button_meaning"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_word_list"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/black"
+            android:enabled="false"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_add_remove"
+            app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
