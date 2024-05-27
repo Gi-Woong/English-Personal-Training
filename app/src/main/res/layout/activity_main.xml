@@ -88,17 +88,72 @@
             android:textColor="@color/black"
             android:enabled="false"/>
 
+        <!-- 새로 추가할 입력 칸과 버튼 -->
+        <EditText
+            android:id="@+id/addTagEditText"
+            android:layout_width="74dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="1dp"
+            android:hint="TAG"
+            android:gravity="center"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/addWordEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_tag" />
+
+        <EditText
+            android:id="@+id/addWordEditText"
+            android:layout_width="112dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="1dp"
+            android:hint="WORD"
+            android:gravity="center"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/addMeaningEditText"
+            app:layout_constraintStart_toEndOf="@id/addTagEditText"
+            app:layout_constraintTop_toBottomOf="@id/button_word" />
+
+        <EditText
+            android:id="@+id/addMeaningEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="1dp"
+            android:hint="뜻"
+            android:gravity="center"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/addButton"
+            app:layout_constraintStart_toEndOf="@id/addWordEditText"
+            app:layout_constraintTop_toBottomOf="@id/button_meaning" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="89dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="등록"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addMeaningEditText"
+            app:layout_constraintTop_toBottomOf="@id/button_add_remove" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="10sp"
+            android:layout_marginTop="1sp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_add_remove"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/addButton"
+            app:layout_constraintVertical_bias="0.139" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
