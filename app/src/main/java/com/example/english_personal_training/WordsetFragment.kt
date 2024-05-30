@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.englishquiz.databinding.FragmentWordsetBinding
+import com.example.english_personal_training.databinding.FragmentWordsetBinding
 
 class WordsetFragment : Fragment() {
     lateinit var binding: FragmentWordsetBinding

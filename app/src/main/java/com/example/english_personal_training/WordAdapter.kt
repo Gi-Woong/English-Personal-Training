@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.englishquiz.databinding.ItemWordBinding
+import com.example.english_personal_training.databinding.ItemWordBinding
 
 
 class WordAdapter(
