@@ -2,158 +2,31 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_word_list"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="8dp"
-            android:text="단어목록"
-            android:textSize="20sp"
+    <FrameLayout
+        android:id="@+id/main_frm"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
 
-            style="@style/colorEx"
+        app:layout_constraintBottom_toTopOf="@id/main_bnv"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_tag"
-            android:layout_width="0dp"
-            app:layout_constraintHorizontal_weight="0.8"
-            android:layout_height="wrap_content"
-            android:text="TAG"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/button_word"
-            app:layout_constraintTop_toBottomOf="@id/button_word_list"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginTop="1dp"
-            android:textColor="@color/black"
-            android:enabled="false"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_word"
-            android:layout_width="0dp"
-            app:layout_constraintHorizontal_weight="1.2"
-            android:layout_height="wrap_content"
-            android:text="WORD"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/button_tag"
-            app:layout_constraintEnd_toStartOf="@id/button_meaning"
-            app:layout_constraintTop_toBottomOf="@id/button_word_list"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginTop="1dp"
-            android:textColor="@color/black"
-            android:enabled="false"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_meaning"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1.2"
-            android:text="뜻"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/button_word"
-            app:layout_constraintEnd_toStartOf="@id/button_add_remove"
-            app:layout_constraintTop_toBottomOf="@id/button_word_list"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginTop="1dp"
-            android:textColor="@color/black"
-            android:enabled="false"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_add_remove"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
-            android:text="Button"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/button_meaning"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_word_list"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="1dp"
-            android:textColor="@color/black"
-            android:enabled="false"/>
-
-        <!-- 새로 추가할 입력 칸과 버튼 -->
-        <EditText
-            android:id="@+id/addTagEditText"
-            android:layout_width="74dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="1dp"
-            android:hint="TAG"
-            android:gravity="center"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/addWordEditText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_tag" />
-
-        <EditText
-            android:id="@+id/addWordEditText"
-            android:layout_width="112dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="1dp"
-            android:hint="WORD"
-            android:gravity="center"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/addMeaningEditText"
-            app:layout_constraintStart_toEndOf="@id/addTagEditText"
-            app:layout_constraintTop_toBottomOf="@id/button_word" />
-
-        <EditText
-            android:id="@+id/addMeaningEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="1dp"
-            android:hint="뜻"
-            android:gravity="center"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/addButton"
-            app:layout_constraintStart_toEndOf="@id/addWordEditText"
-            app:layout_constraintTop_toBottomOf="@id/button_meaning" />
-
-        <Button
-            android:id="@+id/addButton"
-            android:layout_width="89dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="등록"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/addMeaningEditText"
-            app:layout_constraintTop_toBottomOf="@id/button_add_remove" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="1sp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addButton"
-            app:layout_constraintVertical_bias="0.139" />
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_bnv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemIconSize="20dp"
+        app:itemIconTint="@drawable/btm_color_selector"
+        app:itemTextColor="@drawable/btm_color_selector"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
