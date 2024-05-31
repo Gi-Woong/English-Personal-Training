@@ -50,8 +50,6 @@ class WordAdapter (
                 onOptionClicked(currentItem.word, option)
             }
         }
-
-
     }
 
     override fun getItemCount(): Int {

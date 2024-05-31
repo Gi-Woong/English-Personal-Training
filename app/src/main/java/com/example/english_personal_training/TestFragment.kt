@@ -1,5 +1,4 @@
-package com.example.english_personal_training
-
+import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.english_personal_training.WordAdapter
 import com.example.english_personal_training.data.ItemViewModel
 import com.example.english_personal_training.databinding.FragmentTestBinding
 import com.example.englishquiz.WordTestItem
@@ -38,7 +38,7 @@ class TestFragment : Fragment() {
                     if (it.word == it.userChoice) correctAnswers++ // 정답일 경우
                 }
             }
-            Toast.makeText(context, "선택한 답: $totalSelected, 정답 수: $correctAnswers", Toast.LENGTH_SHORT).show()
+            showResultDialog(totalSelected, correctAnswers)
         }
 
         return binding.root
@@ -77,5 +77,17 @@ class TestFragment : Fragment() {
     private fun generateOptions(correctWord: String, allWords: List<String>): List<String> {
         val shuffled = allWords.filter { it != correctWord }.shuffled()
         return (shuffled.take(3) + correctWord).shuffled()
+    }
+
+    private fun showResultDialog(totalSelected: Int, correctAnswers: Int) {
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setTitle("결과 확인")
+            .setMessage("총 선택한 문제: $totalSelected\n맞힌 문제: $correctAnswers\n틀린 문제: ${totalSelected - correctAnswers}")
+            .setPositiveButton("확인") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+        alertDialog.show()
     }
 }
