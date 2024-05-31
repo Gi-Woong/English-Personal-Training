@@ -1,6 +1,8 @@
 package com.example.english_personal_training
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,11 +61,13 @@ class TestFragment : Fragment() {
 
     private fun initRecyclerView(wordList: List<WordTestItem>) {
         wordAdapter = WordAdapter(wordList) { word, option ->
-            if (word == option) {
-                Toast.makeText(context, "정답입니다!", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, "오답입니다!", Toast.LENGTH_SHORT).show()
-            }
+            val toastMessage = if (word == option) { "정답입니다!" } else { "오답입니다!" }
+            val toast = Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT)
+            toast.show()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                toast.cancel()
+            }, 800)
         }
 
         binding.recyclerView.adapter = wordAdapter
