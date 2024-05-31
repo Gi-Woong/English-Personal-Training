@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.english_personal_training.databinding.ActivityMainBinding
 import com.example.englishquiz.HomeFragment
-import com.example.englishquiz.TestFragment
-import com.example.englishquiz.WordsetFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -40,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.wordsetFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, WordsetFragment())
+                        .replace(R.id.main_frm, TestSetFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }

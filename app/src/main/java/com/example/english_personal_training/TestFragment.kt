@@ -1,4 +1,4 @@
-package com.example.englishquiz
+package com.example.english_personal_training
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.english_personal_training.databinding.FragmentTestBinding
+import com.example.englishquiz.WordTestItem
 
 class TestFragment : Fragment() {
     lateinit var binding: FragmentTestBinding
@@ -41,12 +42,12 @@ class TestFragment : Fragment() {
         val allWords = listOf("apple", "star", "cord", "key", "house", "go", "peach")
 
         val wordList = listOf(
-            WordItem("apple", "사과", generateOptions("apple", allWords)),
-            WordItem("star", "별", generateOptions("star", allWords)),
-            WordItem("cord", "코드", generateOptions("cord", allWords)),
-            WordItem("key", "열쇠", generateOptions("key", allWords)),
-            WordItem("house", "집", generateOptions("house", allWords)),
-            WordItem("go", "가다", generateOptions("go", allWords))
+            WordTestItem("apple", "사과", generateOptions("apple", allWords)),
+            WordTestItem("star", "별", generateOptions("star", allWords)),
+            WordTestItem("cord", "코드", generateOptions("cord", allWords)),
+            WordTestItem("key", "열쇠", generateOptions("key", allWords)),
+            WordTestItem("house", "집", generateOptions("house", allWords)),
+            WordTestItem("go", "가다", generateOptions("go", allWords))
         )
 
         wordAdapter = WordAdapter(wordList) { word, option ->
