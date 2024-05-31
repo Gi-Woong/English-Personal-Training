@@ -4,19 +4,19 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.english_personal_training.databinding.ItemWordQuizBinding
+import com.example.english_personal_training.databinding.ItemWordTestBinding
 import com.example.englishquiz.WordTestItem
 
 
-class WordAdapter(
+class WordAdapter (
     val wordList: List<WordTestItem>,
     private val onOptionClicked: (String, String) -> Unit
 ) : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
-    class WordViewHolder(val binding: ItemWordQuizBinding) : RecyclerView.ViewHolder(binding.root)
+    class WordViewHolder(val binding: ItemWordTestBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
-        val binding = ItemWordQuizBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemWordTestBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return WordViewHolder(binding)
     }
 

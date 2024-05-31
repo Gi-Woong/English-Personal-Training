@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.wordsetFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, TestSetFragment())
+                        .replace(R.id.main_frm, WordSetFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }

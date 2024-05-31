@@ -6,13 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.english_personal_training.data.ItemViewModel
 import com.example.english_personal_training.databinding.FragmentTestBinding
 import com.example.englishquiz.WordTestItem
 
 class TestFragment : Fragment() {
-    lateinit var binding: FragmentTestBinding
+
+    private lateinit var binding: FragmentTestBinding
     private lateinit var wordAdapter: WordAdapter
+    private val itemViewModel: ItemViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +25,7 @@ class TestFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTestBinding.inflate(inflater, container, false)
-        initRecyclerView()
+        observeViewModel()
 
         binding.resultCheckButton.setOnClickListener {
             var totalSelected = 0
@@ -35,28 +40,30 @@ class TestFragment : Fragment() {
         }
 
         return binding.root
-
     }
 
-    private fun initRecyclerView() {
-        val allWords = listOf("apple", "star", "cord", "key", "house", "go", "peach")
+    private fun observeViewModel() {
+        // DB에서 Observer 통해서 단어 불러오기
+        itemViewModel.allItems.observe(viewLifecycleOwner, Observer { items ->
+            val allWords = items.map { it.word }
+            val wordList = items.map { item ->
+                WordTestItem(
+                    word = item.word,
+                    meaning = item.meaning,
+                    options = generateOptions(item.word, allWords)
+                )
+            }
+            initRecyclerView(wordList)
+        })
+    }
 
-        val wordList = listOf(
-            WordTestItem("apple", "사과", generateOptions("apple", allWords)),
-            WordTestItem("star", "별", generateOptions("star", allWords)),
-            WordTestItem("cord", "코드", generateOptions("cord", allWords)),
-            WordTestItem("key", "열쇠", generateOptions("key", allWords)),
-            WordTestItem("house", "집", generateOptions("house", allWords)),
-            WordTestItem("go", "가다", generateOptions("go", allWords))
-        )
-
+    private fun initRecyclerView(wordList: List<WordTestItem>) {
         wordAdapter = WordAdapter(wordList) { word, option ->
             if (word == option) {
                 Toast.makeText(context, "정답입니다!", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(context, "오답입니다!", Toast.LENGTH_SHORT).show()
             }
-
         }
 
         binding.recyclerView.adapter = wordAdapter
@@ -67,6 +74,4 @@ class TestFragment : Fragment() {
         val shuffled = allWords.filter { it != correctWord }.shuffled()
         return (shuffled.take(3) + correctWord).shuffled()
     }
-
 }
-
