@@ -1,13 +1,14 @@
 package com.example.english_personal_training
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.english_personal_training.databinding.ItemLayoutBinding
 import com.example.english_personal_training.data.Item
 import com.example.english_personal_training.data.ItemViewModel
 
-class MyAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapter<MyAdapter.ItemViewHolder>() {
+class WordSetAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapter<WordSetAdapter.ItemViewHolder>() {
 
     private lateinit var itemViewModel: ItemViewModel
 
@@ -81,22 +82,25 @@ class MyAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapter<
             meaningEditTextView.setText(item.meaning)
 
             // 초기에는 EditText를 보이지 않도록 설정
-            tagEditTextView.visibility = android.view.View.GONE
-            wordEditTextView.visibility = android.view.View.GONE
-            meaningEditTextView.visibility = android.view.View.GONE
-            doneButton.visibility = android.view.View.GONE
+            tagTextView.visibility = View.VISIBLE
+            wordTextView.visibility = View.VISIBLE
+            meaningTextView.visibility = View.VISIBLE
+            tagEditTextView.visibility = View.GONE
+            wordEditTextView.visibility = View.GONE
+            meaningEditTextView.visibility = View.GONE
+            doneButton.visibility = View.GONE
         }
 
         fun toggleEditMode() {
             // 수정 모드 토글
-            val isEditMode = tagTextView.visibility == android.view.View.GONE
-            tagTextView.visibility = if (isEditMode) android.view.View.VISIBLE else android.view.View.GONE
-            wordTextView.visibility = if (isEditMode) android.view.View.VISIBLE else android.view.View.GONE
-            meaningTextView.visibility = if (isEditMode) android.view.View.VISIBLE else android.view.View.GONE
-            tagEditTextView.visibility = if (isEditMode) android.view.View.GONE else android.view.View.VISIBLE
-            wordEditTextView.visibility = if (isEditMode) android.view.View.GONE else android.view.View.VISIBLE
-            meaningEditTextView.visibility = if (isEditMode) android.view.View.GONE else android.view.View.VISIBLE
-            doneButton.visibility = if (isEditMode) android.view.View.GONE else android.view.View.VISIBLE
+            val isEditMode = tagTextView.visibility == View.GONE
+            tagTextView.visibility = if (isEditMode) View.VISIBLE else View.GONE
+            wordTextView.visibility = if (isEditMode) View.VISIBLE else View.GONE
+            meaningTextView.visibility = if (isEditMode) View.VISIBLE else View.GONE
+            tagEditTextView.visibility = if (isEditMode) View.GONE else View.VISIBLE
+            wordEditTextView.visibility = if (isEditMode) View.GONE else View.VISIBLE
+            meaningEditTextView.visibility = if (isEditMode) View.GONE else View.VISIBLE
+            doneButton.visibility = if (isEditMode) View.GONE else View.VISIBLE
         }
     }
 

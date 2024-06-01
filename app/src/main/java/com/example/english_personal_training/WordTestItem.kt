@@ -1,7 +1,7 @@
 package com.example.englishquiz
 
 //data class WordItem(val word: String, val meaning: String, val options: List<String>)
-data class WordItem(
+data class WordTestItem(
     val word: String,
     val meaning: String,
     val options: List<String>,

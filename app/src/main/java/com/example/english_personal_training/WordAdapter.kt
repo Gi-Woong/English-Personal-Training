@@ -1,23 +1,22 @@
-package com.example.englishquiz
+package com.example.english_personal_training
 
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.english_personal_training.databinding.ItemWordBinding
+import com.example.english_personal_training.databinding.ItemWordTestBinding
+import com.example.englishquiz.WordTestItem
 
 
-class WordAdapter(
-    val wordList: List<WordItem>,
+class WordAdapter (
+    val wordList: List<WordTestItem>,
     private val onOptionClicked: (String, String) -> Unit
 ) : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
-    class WordViewHolder(val binding: ItemWordBinding) : RecyclerView.ViewHolder(binding.root)
+    class WordViewHolder(val binding: ItemWordTestBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
-        val binding = ItemWordBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemWordTestBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return WordViewHolder(binding)
     }
 
@@ -51,8 +50,6 @@ class WordAdapter(
                 onOptionClicked(currentItem.word, option)
             }
         }
-
-
     }
 
     override fun getItemCount(): Int {

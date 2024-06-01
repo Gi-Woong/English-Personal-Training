@@ -1,17 +1,25 @@
-package com.example.englishquiz
-
+import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.english_personal_training.WordAdapter
+import com.example.english_personal_training.data.ItemViewModel
 import com.example.english_personal_training.databinding.FragmentTestBinding
+import com.example.englishquiz.WordTestItem
 
 class TestFragment : Fragment() {
-    lateinit var binding: FragmentTestBinding
+
+    private lateinit var binding: FragmentTestBinding
     private lateinit var wordAdapter: WordAdapter
+    private val itemViewModel: ItemViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,7 +27,7 @@ class TestFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTestBinding.inflate(inflater, container, false)
-        initRecyclerView()
+        observeViewModel()
 
         binding.resultCheckButton.setOnClickListener {
             var totalSelected = 0
@@ -30,32 +38,36 @@ class TestFragment : Fragment() {
                     if (it.word == it.userChoice) correctAnswers++ // 정답일 경우
                 }
             }
-            Toast.makeText(context, "선택한 답: $totalSelected, 정답 수: $correctAnswers", Toast.LENGTH_SHORT).show()
+            showResultDialog(totalSelected, correctAnswers)
         }
 
         return binding.root
-
     }
 
-    private fun initRecyclerView() {
-        val allWords = listOf("apple", "star", "cord", "key", "house", "go", "peach")
-
-        val wordList = listOf(
-            WordItem("apple", "사과", generateOptions("apple", allWords)),
-            WordItem("star", "별", generateOptions("star", allWords)),
-            WordItem("cord", "코드", generateOptions("cord", allWords)),
-            WordItem("key", "열쇠", generateOptions("key", allWords)),
-            WordItem("house", "집", generateOptions("house", allWords)),
-            WordItem("go", "가다", generateOptions("go", allWords))
-        )
-
-        wordAdapter = WordAdapter(wordList) { word, option ->
-            if (word == option) {
-                Toast.makeText(context, "정답입니다!", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, "오답입니다!", Toast.LENGTH_SHORT).show()
+    private fun observeViewModel() {
+        // DB에서 Observer 통해서 단어 불러오기
+        itemViewModel.allItems.observe(viewLifecycleOwner, Observer { items ->
+            val allWords = items.map { it.word }
+            val wordList = items.map { item ->
+                WordTestItem(
+                    word = item.word,
+                    meaning = item.meaning,
+                    options = generateOptions(item.word, allWords)
+                )
             }
+            initRecyclerView(wordList)
+        })
+    }
 
+    private fun initRecyclerView(wordList: List<WordTestItem>) {
+        wordAdapter = WordAdapter(wordList) { word, option ->
+            val toastMessage = if (word == option) { "정답입니다!" } else { "오답입니다!" }
+            val toast = Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT)
+            toast.show()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                toast.cancel()
+            }, 800)
         }
 
         binding.recyclerView.adapter = wordAdapter
@@ -67,5 +79,15 @@ class TestFragment : Fragment() {
         return (shuffled.take(3) + correctWord).shuffled()
     }
 
-}
+    private fun showResultDialog(totalSelected: Int, correctAnswers: Int) {
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setTitle("결과 확인")
+            .setMessage("총 선택한 문제: $totalSelected\n맞힌 문제: $correctAnswers\n틀린 문제: ${totalSelected - correctAnswers}")
+            .setPositiveButton("확인") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
 
+        alertDialog.show()
+    }
+}
