@@ -17,6 +17,7 @@ class WordSetFragment : Fragment() {
     private lateinit var adapter: WordSetAdapter
     private lateinit var itemViewModel: ItemViewModel
 
+    //test
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
