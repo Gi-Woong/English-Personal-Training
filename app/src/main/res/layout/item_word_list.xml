@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- 단어를 표시하는 텍스트뷰 -->
+        <TextView
+            android:id="@+id/wordTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp" />
+
+        <!-- 단어의 의미를 표시하는 텍스트뷰 -->
+        <TextView
+            android:id="@+id/MeanTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp" />
+
+        <!-- 예문 보기/접기 버튼 -->
+        <Button
+            android:id="@+id/showExamplesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="예문 보기"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <!-- 예문 로드 중 보여지는 프로그레스바 -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <!-- 예문을 표시하는 텍스트뷰 -->
+    <TextView
+        android:id="@+id/examplesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="#D3D3D3"
+        android:padding="8dp"
+        android:textSize="16sp" />
+</LinearLayout>
