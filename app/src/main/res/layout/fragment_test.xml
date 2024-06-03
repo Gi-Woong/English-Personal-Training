@@ -20,5 +20,6 @@
         android:layout_gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="결과확인"/>
+        android:text="결과확인"
+        android:fontFamily="@font/pretendard_semibold"/>
 </LinearLayout>

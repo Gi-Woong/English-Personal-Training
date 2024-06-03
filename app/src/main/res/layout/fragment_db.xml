@@ -16,9 +16,8 @@
             android:layout_marginEnd="8dp"
             android:text="단어목록"
             android:textSize="20sp"
-
-            style="@style/colorEx"
-
+            android:fontFamily="@font/pretendard_bold"
+            android:background="#74AA9C"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +37,8 @@
             android:layout_marginEnd="1dp"
             android:layout_marginTop="1dp"
             android:textColor="@color/black"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:fontFamily="@font/pretendard_semibold"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_word"
@@ -54,14 +54,15 @@
             android:layout_marginEnd="1dp"
             android:layout_marginTop="1dp"
             android:textColor="@color/black"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:fontFamily="@font/pretendard_semibold"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_meaning"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintHorizontal_weight="1.2"
-            android:text="뜻"
+            android:text="Meaning"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/button_word"
             app:layout_constraintEnd_toStartOf="@id/button_add_remove"
@@ -70,7 +71,8 @@
             android:layout_marginEnd="1dp"
             android:layout_marginTop="1dp"
             android:textColor="@color/black"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:fontFamily="@font/pretendard_semibold"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_add_remove"
@@ -86,7 +88,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="1dp"
             android:textColor="@color/black"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:fontFamily="@font/pretendard_semibold"/>
 
         <!-- 새로 추가할 입력 칸과 버튼 -->
         <EditText
@@ -98,10 +101,11 @@
             android:layout_marginEnd="1dp"
             android:hint="TAG"
             android:gravity="center"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/addWordEditText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_tag" />
+            app:layout_constraintTop_toBottomOf="@id/button_tag"
+            android:fontFamily="@font/pretendard_regular"/>
 
         <EditText
             android:id="@+id/addWordEditText"
@@ -112,24 +116,26 @@
             android:layout_marginEnd="1dp"
             android:hint="WORD"
             android:gravity="center"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/addMeaningEditText"
             app:layout_constraintStart_toEndOf="@id/addTagEditText"
-            app:layout_constraintTop_toBottomOf="@id/button_word" />
+            app:layout_constraintTop_toBottomOf="@id/button_word"
+            android:fontFamily="@font/pretendard_regular"/>
 
         <EditText
             android:id="@+id/addMeaningEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="112dp"
+            android:layout_height="38dp"
             android:layout_marginStart="1dp"
             android:layout_marginTop="13dp"
             android:layout_marginEnd="1dp"
             android:hint="뜻"
             android:gravity="center"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/addButton"
             app:layout_constraintStart_toEndOf="@id/addWordEditText"
-            app:layout_constraintTop_toBottomOf="@id/button_meaning" />
+            app:layout_constraintTop_toBottomOf="@id/button_meaning"
+            android:fontFamily="@font/pretendard_regular"/>
 
         <Button
             android:id="@+id/addButton"
@@ -139,10 +145,13 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="등록"
-            android:textSize="15sp"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/addMeaningEditText"
-            app:layout_constraintTop_toBottomOf="@id/button_add_remove" />
+            app:layout_constraintTop_toBottomOf="@id/button_add_remove"
+            android:fontFamily="@font/pretendard_regular"
+            android:background="@drawable/word_btn"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -153,7 +162,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addButton"
-            app:layout_constraintVertical_bias="0.139" />
-
-
+            app:layout_constraintVertical_bias="0.139"
+            android:fontFamily="@font/pretendard_light"
+            />
 </androidx.constraintlayout.widget.ConstraintLayout>

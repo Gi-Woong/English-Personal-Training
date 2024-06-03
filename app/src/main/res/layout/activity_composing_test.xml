@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:id="@+id/dialog_layout"
+    android:background="#676767">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,8 +14,9 @@
         android:textSize="20dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:background="#D9D9D9"
-        android:padding="10dp" />
+        android:background="#74AA9C"
+        android:padding="10dp"
+        android:fontFamily="@font/pretendard_bold"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,14 +39,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="문제"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:fontFamily="@font/pretendard_semibold"/>
 
             <EditText
                 android:id="@+id/test_prob"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:background="@drawable/edittext_border_line"/>
+                android:background="@drawable/edittext_border_line"
+                android:textSize="15dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -60,7 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="유형"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:fontFamily="@font/pretendard_semibold"/>
 
             <RadioGroup
                 android:id="@+id/test_type"
@@ -73,13 +79,19 @@
                     android:id="@+id/test_type_def"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="뜻"/>
+                    android:text="뜻"
+                    android:buttonTint="@drawable/radio_btn_colors"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textSize="15dp"/>
 
                 <RadioButton
                     android:id="@+id/test_type_ex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="예문"/>
+                    android:text="예문"
+                    android:buttonTint="@drawable/radio_btn_colors"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textSize="15dp"/>
             </RadioGroup>
         </LinearLayout>
 
@@ -97,7 +109,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Set"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:fontFamily="@font/pretendard_semibold"/>
 
             <Spinner
                 android:id="@+id/test_spinner"
@@ -105,7 +118,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:padding="7dp"
-                android:background="@drawable/spinner_background" />
+                android:background="@drawable/spinner_background"
+                android:fontFamily="@font/pretendard_medium"
+                android:textSize="15dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -122,7 +137,9 @@
         android:layout_gravity="end"
         android:padding="12dp"
         android:layout_marginRight="20dp"
-        />
+        android:background="#74AA9C"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/pretendard_semibold" />
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
