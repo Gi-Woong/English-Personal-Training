@@ -7,6 +7,15 @@ android {
     namespace 'com.example.english_personal_training'
     compileSdk 34
 
+    // Read the local.properties file
+    def localProperties = new Properties()
+    def localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.withInputStream { stream ->
+            localProperties.load(stream)
+        }
+    }
+
     defaultConfig {
         applicationId "com.example.english_personal_training"
         minSdk 19
@@ -15,6 +24,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Read the API key from local.properties
+        def apiKey = localProperties.getProperty("API_KEY")
+        if (apiKey != null) {
+            buildConfigField "String", "API_KEY", "\"${apiKey}\""
+        } else {
+            throw new GradleException("API_KEY not found in local.properties")
+        }
     }
 
     buildTypes {
@@ -31,6 +48,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }

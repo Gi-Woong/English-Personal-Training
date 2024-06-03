@@ -12,6 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import androidx.core.text.HtmlCompat
+import com.example.english_personal_training.BuildConfig
 import com.example.english_personal_training.R
 import kotlinx.coroutines.*
 import okhttp3.Dispatcher
@@ -23,7 +24,7 @@ class WordListAdapter : RecyclerView.Adapter<WordListAdapter.WordListViewHolder>
     private var words: List<WordTestItem> = emptyList()
     private val examplesMap = mutableMapOf<String, String>()
     private val loadingMap = mutableMapOf<String, Boolean>()
-    private val apiKey="API Key를 입력하세요"
+    private val apiKey= BuildConfig.API_KEY
     private val openAIService: OpenAIService
 
     init {
