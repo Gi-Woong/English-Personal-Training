@@ -15,4 +15,8 @@ interface ItemDao {
 
     @Query("SELECT * FROM items")
     suspend fun getAllItems(): List<Item>
+
+    // 선택된 tag에 해당하는 word 개수 세기
+    @Query("SELECT COUNT(*) FROM items WHERE tag = :tag")
+    suspend fun countItemsByTag(tag: String): Int
 }
