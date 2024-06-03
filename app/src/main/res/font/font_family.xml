@@ -24,4 +24,5 @@
         android:font="@font/pretendard_bold"
         android:fontStyle="normal"
         android:fontWeight="700" />
+
 </font-family>
