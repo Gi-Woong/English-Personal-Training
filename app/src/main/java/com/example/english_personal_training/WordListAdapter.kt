@@ -16,8 +16,6 @@ import com.example.english_personal_training.BuildConfig
 import com.example.english_personal_training.R
 import kotlinx.coroutines.*
 import okhttp3.Dispatcher
-import java.util.Properties
-import java.io.FileInputStream
 
 class WordListAdapter : RecyclerView.Adapter<WordListAdapter.WordListViewHolder>() {
 
@@ -97,6 +95,17 @@ class WordListAdapter : RecyclerView.Adapter<WordListAdapter.WordListViewHolder>
 
     private fun loadExampleAsync(word: WordTestItem, examplesTextView: TextView, showExamplesButton: Button, progressBar: ProgressBar) {
         if (loadingMap[word.word] == true) return
+
+        // Check if the word and meaning are valid (simple validation)
+        if (!word.word.matches(Regex("^[a-zA-Z]+$")) || !word.meaning.matches(Regex("^[가-힣]+$"))) {
+            CoroutineScope(Dispatchers.Main).launch {
+                examplesTextView.text = "Failed to load example."
+                examplesTextView.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
+                showExamplesButton.text = "예문 보기"
+            }
+            return
+        }
 
         loadingMap[word.word] = true
 
