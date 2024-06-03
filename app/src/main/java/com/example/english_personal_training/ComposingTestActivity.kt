@@ -3,12 +3,14 @@ package com.example.english_personal_training
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.english_personal_training.data.Item
 import com.example.english_personal_training.data.ItemDatabase
 import com.example.english_personal_training.databinding.ActivityComposingTestBinding
 import kotlinx.coroutines.Dispatchers
@@ -33,6 +35,18 @@ class ComposingTestActivity : AppCompatActivity() {
         layoutParams.width = (resources.displayMetrics.widthPixels * 0.9).toInt() // 너비를 화면 너비의 90%로 설정
         layoutParams.height = (resources.displayMetrics.heightPixels * 0.8).toInt() // 높이를 화면 높이의 80%로 설정
         window.attributes = layoutParams
+
+        // 터치 이벤트를 설정하여 특정 영역을 제외한 나머지 영역 터치를 무시합니다
+        binding.dialogLayout.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                val dialogContainer = findViewById<View>(R.id.dialog_layout)
+                if (!isPointInsideView(event.rawX, event.rawY, dialogContainer)) {
+                    // 다이얼로그 외부를 터치했을 때 아무 작업도 하지 않음
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
 
         // 테스트 유형
         binding.testType.setOnCheckedChangeListener { group, checkedId ->
@@ -65,7 +79,7 @@ class ComposingTestActivity : AppCompatActivity() {
 
         // 스피너에서 태그 선택하기
         binding.testSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 selectedSet = parent.getItemAtPosition(position).toString()
             }
 
@@ -76,7 +90,8 @@ class ComposingTestActivity : AppCompatActivity() {
 
         // 테스트 시작 버튼
         binding.testStart.setOnClickListener {
-            problemCount = binding.testProb.text.toString().toIntOrNull() ?: 0
+            val problemCountStr = binding.testProb.text.toString()
+            problemCount = problemCountStr.toIntOrNull() ?: -1
 
             var validInput = true
             val missingInputs = mutableListOf<String>()
@@ -91,19 +106,43 @@ class ComposingTestActivity : AppCompatActivity() {
                 validInput = false
             }
 
-            if (selectedSet.isEmpty() || selectedSet == "No tags available") {
+            if (selectedSet.isEmpty() || selectedSet == "저장된 태그가 없습니다.") {
                 missingInputs.add("태그")
                 validInput = false
             }
 
+            if (!problemCountStr.all { it.isDigit() }) {
+                Toast.makeText(this, "문제 수에는 자연수만 입력할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                validInput = false
+            }
+
             if (validInput) {
-                val resultIntent = Intent().apply {
-                    putExtra("PROBLEM_COUNT", problemCount)
-                    putExtra("SELECTED_TYPE", selectedType)
-                    putExtra("SELECTED_SET", selectedSet)
+                lifecycleScope.launch {
+                    val wordCount = getWordCountFromDatabase(selectedSet)
+
+                    Log.d("ComposingTestActivity", "Selected tag: $selectedSet, Word count: $wordCount")
+
+                    if (wordCount < 4) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@ComposingTestActivity, "4개 이상의 단어가 저장된 태그에 대해서만 테스트를 구성할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                        return@launch
+                    }
+                    if (problemCount > wordCount) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@ComposingTestActivity, "문제 수는 태그에 저장된 단어의 수를 넘을 수 없습니다. ($selectedSet 에 저장된 단어 수: $wordCount 개)", Toast.LENGTH_SHORT).show()
+                        }
+                        return@launch
+                    }
+
+                    val resultIntent = Intent().apply {
+                        putExtra("PROBLEM_COUNT", problemCount)
+                        putExtra("SELECTED_TYPE", selectedType)
+                        putExtra("SELECTED_SET", selectedSet)
+                    }
+                    setResult(RESULT_OK, resultIntent)
+                    finish()
                 }
-                setResult(RESULT_OK, resultIntent)
-                finish()
             } else {
                 if (missingInputs.size > 1) {
                     Toast.makeText(this, "모두 선택하고 테스트 시작 버튼을 눌러주세요", Toast.LENGTH_SHORT).show()
@@ -120,5 +159,32 @@ class ComposingTestActivity : AppCompatActivity() {
             val tags = db.itemDao().getAllItems().map { it.tag }.distinct()
             tags
         }
+    }
+
+
+
+    private suspend fun getWordCountFromDatabase(tag: String): Int {
+        return withContext(Dispatchers.IO) {
+            val db = ItemDatabase.getDatabase(applicationContext)
+            val count = db.itemDao().getAllItems().count { it.tag == tag }
+            count
+        }
+    }
+
+    private fun isPointInsideView(x: Float, y: Float, view: View): Boolean {
+        val location = IntArray(2)
+        view.getLocationOnScreen(location)
+        val viewX = location[0]
+        val viewY = location[1]
+        val viewWidth = view.width
+        val viewHeight = view.height
+
+        return x >= viewX && x <= (viewX + viewWidth) && y >= viewY && y <= (viewY + viewHeight)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        // 뒤로가기 버튼 동작을 막음
+        Toast.makeText(this, "뒤로 가기 버튼을 사용할 수 없습니다.", Toast.LENGTH_SHORT).show()
     }
 }
