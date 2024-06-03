@@ -11,13 +11,13 @@ import com.example.english_personal_training.data.Item
 import com.example.english_personal_training.data.ItemViewModel
 import com.example.english_personal_training.data.ItemViewModelFactory
 import com.example.english_personal_training.databinding.FragmentDbBinding
+import com.example.englishquiz.WordListFragment
 
 class WordSetFragment : Fragment() {
     private lateinit var binding: FragmentDbBinding
     private lateinit var adapter: WordSetAdapter
     private lateinit var itemViewModel: ItemViewModel
 
-    //test
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +30,8 @@ class WordSetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        //test
         // RecyclerView 초기화
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = WordSetAdapter(mutableListOf())
@@ -62,6 +64,14 @@ class WordSetFragment : Fragment() {
                 binding.addWordEditText.text.clear()
                 binding.addMeaningEditText.text.clear()
             }
+        }
+
+        // 단어목록 버튼 listener 처리
+        binding.buttonWordList.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, WordListFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
         }
     }
 }
