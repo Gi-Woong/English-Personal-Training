@@ -20,9 +20,13 @@ import com.example.english_personal_training.data.ItemDatabase
 import com.example.english_personal_training.data.ItemViewModel
 import com.example.english_personal_training.databinding.FragmentTestBinding
 import com.example.englishquiz.WordTestItem
+
+import kotlin.random.Random
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 class TestFragment : Fragment() {
 
@@ -67,7 +71,7 @@ class TestFragment : Fragment() {
                     meaning = item.meaning,
                     options = generateOptions(item.word, allWords)
                 )
-            }
+            }.shuffled(Random(System.currentTimeMillis())) //단어문제 섞기
             initRecyclerView(wordList)
         })
     }

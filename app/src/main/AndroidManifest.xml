@@ -26,4 +26,5 @@
             android:theme="@style/DialogStyle"
             android:label="" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
