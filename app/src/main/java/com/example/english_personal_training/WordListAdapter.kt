@@ -113,17 +113,25 @@ class WordListAdapter : RecyclerView.Adapter<WordListAdapter.WordListViewHolder>
             val request = OpenAIRequest(
                 model = "gpt-4-turbo",
                 messages = listOf(
-                    Message(role = "system", content = "You are a helpful assistant."),
-                    Message(role = "user", content = """
-                        Provide an example sentence for the word '${word.word}' in English and its Korean translation. 
-                        The sentence should clearly demonstrate the meaning '${word.meaning}' of the word '${word.word}'. 
-                        Make sure the sentence is clear and grammatically correct. 
-                        Return the result in the format: 
-                        'English: <example sentence><newline>Korean: <translation>'.
-                        Make sure the Korean translation is natural and grammatically correct. 
-                        Bold the word '${word.word}' in the English sentence using HTML <b> tags.
+                    Message(role = "system", content = "You are a helpful, fastest answering English teacher teaching Korean students in English."),
+                    Message(role = "user", content =
+                    """
+${word.word}
+task: Write a appropriate english example sentence.
+conditions: 
+<a example sentence in korean> contain the literal korean meaning of  provided word
+memorizable
+easy to speak
+Make sure the sentence is clear and grammatically correct. 
+Bold the word '${word.word}' in the English sentence using HTML <b> tags.
+한글 문법을 철저히 지키세요!
+[important]
+suggest EASY sentence.
+<a example sentence in korean> should be Natural sentences in Korean
+[answer form]
+English: <example sentence><newline>Korean: <a example sentence in korean>.
                     """.trimIndent())
-                )
+                ),
             )
 
             try {
