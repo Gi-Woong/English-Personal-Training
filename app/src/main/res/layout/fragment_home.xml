@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        app:srcCompat="@drawable/ept_logo1" />
 
-    <TextView
-        android:layout_marginStart="110dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="100dp"
-        android:text="EPT"/>
     <Button
-        android:layout_gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="설명서"/>
-    <Button
-        android:layout_gravity="right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="테스트 구성"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="#676767"
+        android:fontFamily="@font/pretendard_semibold"
+        android:padding="10dp"
+        android:text="EPT 사용 설명서" />
 
 
 </LinearLayout>
