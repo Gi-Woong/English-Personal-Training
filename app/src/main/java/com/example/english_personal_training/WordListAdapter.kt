@@ -97,7 +97,7 @@ class WordListAdapter : RecyclerView.Adapter<WordListAdapter.WordListViewHolder>
         if (loadingMap[word.word] == true) return
 
         // Check if the word and meaning are valid (simple validation)
-        if (!word.word.matches(Regex("^[a-zA-Z]+$")) || !word.meaning.matches(Regex("^[가-힣]+$"))) {
+        if (!word.word.matches(Regex("^[a-zA-ZÀ-ÿ\\s,-]+$")) || !word.meaning.matches(Regex("^[가-힣,~;\\s]+\$"))) {
             CoroutineScope(Dispatchers.Main).launch {
                 examplesTextView.text = "Failed to load example."
                 examplesTextView.visibility = View.VISIBLE
@@ -123,10 +123,14 @@ conditions:
 memorizable
 easy to speak
 Make sure the sentence is clear and grammatically correct. 
+You should refer to the official English dictionary.
+Find a sentence with as few words as possible
+The answer must include the 'literal meaning' in korean.
 Bold the word '${word.word}' in the English sentence using HTML <b> tags.
 한글 문법을 철저히 지키세요!
 [important]
-suggest EASY sentence.
+Suggest EASY sentence.
+Answer should be two lines.
 <a example sentence in korean> should be Natural sentences in Korean
 [answer form]
 English: <example sentence><newline>Korean: <a example sentence in korean>.
