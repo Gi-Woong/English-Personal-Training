@@ -53,11 +53,6 @@ class ItemViewModel(application: Application) : AndroidViewModel(application) {
             _allItems.value = repository.getAllItems()
         }
     }
-
-    fun getItemsByTag(tag: String): LiveData<List<Item>> {
-        return repository.getItemsByTag(tag)
-    }
-
 }
 
 

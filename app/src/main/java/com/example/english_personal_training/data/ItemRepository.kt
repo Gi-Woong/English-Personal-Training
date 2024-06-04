@@ -1,7 +1,6 @@
 package com.example.english_personal_training.data
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -31,10 +30,6 @@ class ItemRepository(context: Context) {
 
     suspend fun deleteAll() {
         return itemDao.deleteAll()
-    }
-
-    fun getItemsByTag(tag: String): LiveData<List<Item>> {
-        return itemDao.getItemsByTag(tag)
     }
 
     suspend fun getAllItems(): List<Item> {

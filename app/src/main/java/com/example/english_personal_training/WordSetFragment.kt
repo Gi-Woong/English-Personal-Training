@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -67,8 +66,7 @@ class WordSetFragment : Fragment() {
             val word = binding.addWordEditText.text.toString()
             val meaning = binding.addMeaningEditText.text.toString()
 
-            if (tag.isNotEmpty() && word.isNotEmpty() && meaning.isNotEmpty() &&
-                tag.isNotBlank() && word.isNotBlank() && meaning.isNotBlank()) {
+            if (tag.isNotEmpty() && word.isNotEmpty() && meaning.isNotEmpty()) {
                 val newItem = Item(tag = tag, word = word, meaning = meaning)
                 itemViewModel.insert(newItem)
 
@@ -76,10 +74,7 @@ class WordSetFragment : Fragment() {
                 binding.addTagEditText.text.clear()
                 binding.addWordEditText.text.clear()
                 binding.addMeaningEditText.text.clear()
-            } else {
-                Toast.makeText(context, "입력 형식이 유효하지 않습니다", Toast.LENGTH_SHORT).show()
             }
-
         }
 
         // 단어목록 버튼 listener 처리
@@ -103,16 +98,6 @@ class WordSetFragment : Fragment() {
                 items?.let { adapter.updateItems(it) }
             })
         }
-
-        // 태그 버튼 listener 처리
-        binding.buttonTag.setOnClickListener {
-            val tag = binding.addTagEditText.text.toString()
-            if (tag.isNotEmpty()) {
-                itemViewModel.getItemsByTag(tag).observe(viewLifecycleOwner, { items ->
-                    items?.let { adapter.updateItems(it) }
-                })
-            }
-        }
     }
 
     override fun onDestroyView() {
@@ -132,8 +117,7 @@ class WordSetFragment : Fragment() {
                 val tag = row["tag"]?.trim()
                 val word = row["word"]?.trim()
                 val meaning = row["meaning"]?.trim()
-                if (!tag.isNullOrEmpty() && !word.isNullOrEmpty() && !meaning.isNullOrEmpty() &&
-                    tag.isNotBlank() && word.isNotBlank() && meaning.isNotBlank()) {
+                if (!tag.isNullOrEmpty() && !word.isNullOrEmpty() && !meaning.isNullOrEmpty()) {
                     itemList.add(Item(tag = tag, word = word, meaning = meaning))
                 }
             }

@@ -20,9 +20,6 @@ interface ItemDao {
     @Query("DELETE FROM items")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM items WHERE tag = :tag")
-    fun getItemsByTag(tag: String): LiveData<List<Item>>
-
     @Query("SELECT * FROM items")
     suspend fun getAllItems(): List<Item>
 
