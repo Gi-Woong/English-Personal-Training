@@ -81,7 +81,7 @@ class TestFragment : Fragment() {
                     meaning = item.meaning,
                     options = generateOptions(item.word, allWords)
                 )
-            }.shuffled(Random(System.currentTimeMillis())) //단어문제 섞기
+            }
             initRecyclerView(wordList)
         })
     }
@@ -130,13 +130,13 @@ class TestFragment : Fragment() {
             val problemCount = data?.getIntExtra("PROBLEM_COUNT", 0) ?: 0
             val selectedType = data?.getStringExtra("SELECTED_TYPE") ?: ""
             val selectedSet = data?.getStringExtra("SELECTED_SET") ?: ""
+            val randomWords = data?.getParcelableArrayListExtra<Item>("RANDOM_WORDS") ?: emptyList()
 
             // 가져온 데이터로 테스트 화면 초기화
-            lifecycleScope.launch {
-                val words = getWordsFromDatabase(selectedSet)
-                val wordList = words.map { WordTestItem(it.word, it.meaning, generateOptions(it.word, words.map { it.word })) }
-                initRecyclerView(wordList)
+            val wordList = randomWords.map {
+                WordTestItem(it.word, it.meaning, generateOptions(it.word, randomWords.map { it.word }))
             }
+            initRecyclerView(wordList)
         }
     }
 
