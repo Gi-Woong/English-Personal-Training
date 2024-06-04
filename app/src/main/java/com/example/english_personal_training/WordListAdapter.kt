@@ -139,7 +139,7 @@ class WordListAdapter : RecyclerView.Adapter<WordListAdapter.WordListViewHolder>
 
         fun bind(word: WordTestItem) {
             binding.wordTextView.text = word.word
-            binding.meanTextView.text = word.meaning
+            binding.MeanTextView.text = word.meaning
             binding.progressBar.visibility = View.GONE
 
             if (examplesMap.containsKey(word.word)) {

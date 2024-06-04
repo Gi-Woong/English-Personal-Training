@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.english_personal_training.ComposingTestActivity
-import com.example.english_personal_training.WordAdapter
+
 import com.example.english_personal_training.data.Item
 import com.example.english_personal_training.data.ItemDatabase
 import com.example.english_personal_training.data.ItemViewModel
@@ -49,15 +49,25 @@ class TestFragment : Fragment() {
         binding.resultCheckButton.setOnClickListener {
             var totalSelected = 0
             var correctAnswers = 0
-            wordAdapter.wordList.forEach {
-                if (it.userChoice != null) { // 선택된 옵션이 있는 경우
+            val incorrectAnswers = mutableListOf<Int>()
+
+            wordAdapter.wordList.forEachIndexed { index, item ->
+                if (item.userChoice != null) { // 선택된 옵션이 있는 경우
                     totalSelected++
-                    if (it.word == it.userChoice) correctAnswers++ // 정답일 경우
+                    if (item.word == item.userChoice) {
+                        correctAnswers++
+                    } else {
+                        incorrectAnswers.add(index + 1) // 틀린 문제의 번호를 저장
+                    }
                 }
             }
-            showResultDialog(totalSelected, correctAnswers)
-        }
 
+            if (totalSelected == 0) {
+                Toast.makeText(context, "선택된 문제가 하나도 없습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                showResultDialog(totalSelected, correctAnswers, incorrectAnswers)
+            }
+        }
         return binding.root
     }
 
@@ -96,10 +106,16 @@ class TestFragment : Fragment() {
         return (shuffled.take(3) + correctWord).shuffled()
     }
 
-    private fun showResultDialog(totalSelected: Int, correctAnswers: Int) {
+    private fun showResultDialog(totalSelected: Int, correctAnswers: Int, incorrectAnswers: List<Int>) {
+        val incorrectString = if (incorrectAnswers.isNotEmpty()) {
+            "틀린 문제 번호: ${incorrectAnswers.joinToString(", ")}"
+        } else {
+            "모든 문제를 맞혔습니다."
+        }
+
         val alertDialog = AlertDialog.Builder(requireContext())
             .setTitle("결과 확인")
-            .setMessage("총 선택한 문제: $totalSelected\n맞힌 문제: $correctAnswers\n틀린 문제: ${totalSelected - correctAnswers}")
+            .setMessage("총 선택한 문제: $totalSelected\n맞힌 문제: $correctAnswers\n틀린 문제: ${totalSelected - correctAnswers}\n$incorrectString")
             .setPositiveButton("확인") { dialog, _ ->
                 dialog.dismiss()
             }
