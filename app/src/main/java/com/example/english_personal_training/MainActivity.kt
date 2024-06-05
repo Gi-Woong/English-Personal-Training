@@ -1,6 +1,5 @@
 package com.example.english_personal_training
 
-import TestFragment
 import WordSetFragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
