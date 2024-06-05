@@ -7,6 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+        <Button
+            android:id="@+id/button_import_csv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CSV로 불러오기"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/button_delete_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체삭제"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_word_list"
             android:layout_width="0dp"
@@ -37,7 +54,6 @@
             android:layout_marginEnd="1dp"
             android:layout_marginTop="1dp"
             android:textColor="@color/black"
-            android:enabled="false"
             android:fontFamily="@font/pretendard_semibold"/>
 
         <androidx.appcompat.widget.AppCompatButton
