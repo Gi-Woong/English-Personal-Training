@@ -36,7 +36,7 @@ class ComposingTestActivity : AppCompatActivity() {
         layoutParams.height = (resources.displayMetrics.heightPixels * 0.8).toInt() // 높이를 화면 높이의 80%로 설정
         window.attributes = layoutParams
 
-        // 터치 이벤트를 설정하여 특정 영역을 제외한 나머지 영역 터치를 무시합니다
+        // 터치 이벤트를 설정하여 특정 영역을 제외한 나머지 영역 터치를 무시
         binding.dialogLayout.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 val dialogContainer = findViewById<View>(R.id.dialog_layout)

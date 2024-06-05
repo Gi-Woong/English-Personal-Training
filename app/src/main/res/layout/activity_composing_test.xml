@@ -14,7 +14,7 @@
         android:textSize="20dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:background="#74AA9C"
+        android:background="#91B8AD"
         android:padding="10dp"
         android:fontFamily="@font/pretendard_bold"/>
 
