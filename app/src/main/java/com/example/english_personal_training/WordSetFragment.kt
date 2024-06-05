@@ -1,37 +1,48 @@
-package com.example.english_personal_training
 
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.english_personal_training.R
+import com.example.english_personal_training.WordSetAdapter
 import com.example.english_personal_training.data.Item
 import com.example.english_personal_training.data.ItemViewModel
 import com.example.english_personal_training.data.ItemViewModelFactory
 import com.example.english_personal_training.databinding.FragmentDbBinding
 import com.example.englishquiz.WordListFragment
+import com.github.doyaaaaaken.kotlincsv.client.CsvReader
 
 class WordSetFragment : Fragment() {
-    private lateinit var binding: FragmentDbBinding
+    private var _binding: FragmentDbBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter: WordSetAdapter
     private lateinit var itemViewModel: ItemViewModel
+
+    // CSV file launcher
+    private val csvFileLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            val items = parseCsv(requireContext(), it)
+            itemViewModel.insertItems(items)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentDbBinding.inflate(inflater, container, false)
+        _binding = FragmentDbBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        //test
         // RecyclerView 초기화
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = WordSetAdapter(mutableListOf())
@@ -73,5 +84,44 @@ class WordSetFragment : Fragment() {
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }
+
+        // CSV 선택 버튼 listener 처리
+        binding.buttonImportCsv.setOnClickListener {
+            csvFileLauncher.launch("text/comma-separated-values")
+        }
+
+        // 전체삭제 버튼 listener 처리
+        binding.buttonDeleteAll.setOnClickListener {
+            itemViewModel.deleteAll()
+            // deleteAll 호출 후 즉시 LiveData를 관찰하여 RecyclerView를 업데이트
+            itemViewModel.allItems.observe(viewLifecycleOwner, { items ->
+                items?.let { adapter.updateItems(it) }
+            })
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun parseCsv(context: Context, uri: Uri): List<Item> {
+        val itemList = mutableListOf<Item>()
+        val inputStream = context.contentResolver.openInputStream(uri)
+
+        inputStream?.use { stream ->
+            val reader = CsvReader()
+            val result = reader.readAllWithHeader(inputStream)
+
+            result.forEach { row ->
+                val tag = row["tag"]?.trim()
+                val word = row["word"]?.trim()
+                val meaning = row["meaning"]?.trim()
+                if (!tag.isNullOrEmpty() && !word.isNullOrEmpty() && !meaning.isNullOrEmpty()) {
+                    itemList.add(Item(tag = tag, word = word, meaning = meaning))
+                }
+            }
+        }
+        return itemList
     }
 }

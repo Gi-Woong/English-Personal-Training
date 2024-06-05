@@ -26,6 +26,13 @@ class ItemViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun insertItems(items: List<Item>) {
+        viewModelScope.launch {
+            repository.insertItems(items)
+            _allItems.value = repository.getAllItems()
+        }
+    }
+
     fun update(item: Item) {
         viewModelScope.launch {
             repository.update(item)
@@ -36,6 +43,13 @@ class ItemViewModel(application: Application) : AndroidViewModel(application) {
     fun delete(item: Item) {
         viewModelScope.launch {
             repository.delete(item)
+            _allItems.value = repository.getAllItems()
+        }
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch {
+            repository.deleteAll()
             _allItems.value = repository.getAllItems()
         }
     }
