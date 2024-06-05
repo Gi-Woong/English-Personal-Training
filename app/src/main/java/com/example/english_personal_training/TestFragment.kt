@@ -14,6 +14,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.english_personal_training.ComposingTestActivity
+
+
+
+
 import com.example.english_personal_training.data.Item
 import com.example.english_personal_training.data.ItemDatabase
 import com.example.english_personal_training.data.ItemViewModel
@@ -46,9 +50,30 @@ class TestFragment : Fragment() {
         startActivityForResult(intent, REQUEST_CODE_COMPOSING_TEST)
 
         binding.resultCheckButton.setOnClickListener {
-            showResultDialog(totalSelected, correctAnswers)
-        }
 
+            var totalSelected = 0
+            var correctAnswers = 0
+            val incorrectAnswers = mutableListOf<Int>()
+
+            wordAdapter.wordList.forEachIndexed { index, item ->
+                if (item.userChoice != null) { // 선택된 옵션이 있는 경우
+                    totalSelected++
+                    if (item.word == item.userChoice) {
+                        correctAnswers++
+                    } else {
+                        incorrectAnswers.add(index + 1) // 틀린 문제의 번호를 저장
+                    }
+                }
+            }
+
+
+
+            if (totalSelected == 0) {
+                Toast.makeText(context, "선택된 문제가 하나도 없습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                showResultDialog(totalSelected, correctAnswers, incorrectAnswers)
+            }
+        }
         return binding.root
     }
 
@@ -62,8 +87,10 @@ class TestFragment : Fragment() {
                     meaning = item.meaning,
                     options = generateOptions(item.word, allWords)
                 )
-            }.shuffled(Random(System.currentTimeMillis())) // 단어 문제 섞기
-            showNextQuestion()
+
+            }
+            initRecyclerView(wordList)
+
         })
     }
 
@@ -107,10 +134,16 @@ class TestFragment : Fragment() {
         return (shuffled.take(3) + correctWord).shuffled()
     }
 
-    private fun showResultDialog(totalSelected: Int, correctAnswers: Int) {
+    private fun showResultDialog(totalSelected: Int, correctAnswers: Int, incorrectAnswers: List<Int>) {
+        val incorrectString = if (incorrectAnswers.isNotEmpty()) {
+            "틀린 문제 번호: ${incorrectAnswers.joinToString(", ")}"
+        } else {
+            "모든 문제를 맞혔습니다."
+        }
+
         val alertDialog = AlertDialog.Builder(requireContext())
             .setTitle("결과 확인")
-            .setMessage("총 선택한 문제: $totalSelected\n맞힌 문제: $correctAnswers\n틀린 문제: ${totalSelected - correctAnswers}")
+            .setMessage("총 선택한 문제: $totalSelected\n맞힌 문제: $correctAnswers\n틀린 문제: ${totalSelected - correctAnswers}\n$incorrectString")
             .setPositiveButton("확인") { dialog, _ ->
                 dialog.dismiss()
             }
@@ -125,16 +158,15 @@ class TestFragment : Fragment() {
             val problemCount = data?.getIntExtra("PROBLEM_COUNT", 0) ?: 0
             val selectedType = data?.getStringExtra("SELECTED_TYPE") ?: ""
             val selectedSet = data?.getStringExtra("SELECTED_SET") ?: ""
+            val randomWords = data?.getParcelableArrayListExtra<Item>("RANDOM_WORDS") ?: emptyList()
 
             // 가져온 데이터로 테스트 화면 초기화
-            lifecycleScope.launch {
-                val words = getWordsFromDatabase(selectedSet)
-                wordList = words.map { WordTestItem(it.word, it.meaning, generateOptions(it.word, words.map { it.word })) }
-                currentQuestionIndex = 0
-                correctAnswers = 0
-                totalSelected = 0
-                showNextQuestion()
+
+            val wordList = randomWords.map {
+                WordTestItem(it.word, it.meaning, generateOptions(it.word, randomWords.map { it.word }))
+
             }
+            initRecyclerView(wordList)
         }
     }
 

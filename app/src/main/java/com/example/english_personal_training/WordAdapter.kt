@@ -1,12 +1,9 @@
-package com.example.english_personal_training
-
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.english_personal_training.databinding.ItemWordTestBinding
 import com.example.englishquiz.WordTestItem
-
 
 class WordAdapter (
     val wordList: List<WordTestItem>,
@@ -22,6 +19,7 @@ class WordAdapter (
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val currentItem = wordList[position]
+        holder.binding.numberText.text = "문제.${position + 1}" // 각 아이템의 번호를 설정
         holder.binding.meaningText.text = currentItem.meaning
 
         val buttons = listOf(

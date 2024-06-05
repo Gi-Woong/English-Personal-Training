@@ -89,6 +89,7 @@ class ComposingTestActivity : AppCompatActivity() {
         }
 
         // 테스트 시작 버튼
+
         binding.testStart.setOnClickListener {
             val problemCountStr = binding.testProb.text.toString()
             problemCount = problemCountStr.toIntOrNull() ?: -1
@@ -135,10 +136,13 @@ class ComposingTestActivity : AppCompatActivity() {
                         return@launch
                     }
 
+                    val randomWords = getRandomWordsFromDatabase(selectedSet, problemCount)
+
                     val resultIntent = Intent().apply {
                         putExtra("PROBLEM_COUNT", problemCount)
                         putExtra("SELECTED_TYPE", selectedType)
                         putExtra("SELECTED_SET", selectedSet)
+                        putParcelableArrayListExtra("RANDOM_WORDS", ArrayList(randomWords))
                     }
                     setResult(RESULT_OK, resultIntent)
                     finish()
@@ -152,7 +156,13 @@ class ComposingTestActivity : AppCompatActivity() {
             }
         }
     }
-
+    private suspend fun getRandomWordsFromDatabase(tag: String, count: Int): List<Item> {
+        return withContext(Dispatchers.IO) {
+            val db = ItemDatabase.getDatabase(applicationContext)
+            val items = db.itemDao().getAllItems().filter { it.tag == tag }
+            items.shuffled().take(count)
+        }
+    }
     private suspend fun getTagsFromDatabase(): List<String> {
         return withContext(Dispatchers.IO) {
             val db = ItemDatabase.getDatabase(applicationContext)
