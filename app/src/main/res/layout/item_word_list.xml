@@ -16,7 +16,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:fontFamily="@font/pretendard_medium"/>
 
         <!-- 단어의 의미를 표시하는 텍스트뷰 -->
         <TextView
@@ -24,7 +25,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:fontFamily="@font/pretendard_medium"/>
 
         <!-- 예문 보기/접기 버튼 -->
         <Button
@@ -32,7 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="예문 보기"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:fontFamily="@font/pretendard_regular"/>
     </LinearLayout>
 
     <!-- 예문 로드 중 보여지는 프로그레스바 -->
@@ -48,7 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:background="#D3D3D3"
+        android:background="#A8A8A8"
         android:padding="8dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pretendard_regular"/>
 </LinearLayout>

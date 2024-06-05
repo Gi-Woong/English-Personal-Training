@@ -2,8 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="55dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/ept_logo2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,8 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tag: "
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/pretendard_semibold"
             android:background="?attr/selectableItemBackground"
-
             android:textSize="24sp"/>
 
         <TextView
@@ -26,27 +42,66 @@
             android:textSize="24sp"
             android:padding="8dp"
             android:background="?attr/selectableItemBackground"
+            android:textColor="#74AA9C"
+            android:fontFamily="@font/pretendard_bold"
             android:clickable="true" />
 
     </LinearLayout>
-    <!-- 태그를 표시하는 텍스트뷰 -->
 
-
-    <!-- 태그 목록을 표시하는 레이아웃 -->
     <LinearLayout
-        android:id="@+id/tagListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:background="#EEEEEE"
-        android:padding="8dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/tagListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:background="#EEEEEE"
+            android:layout_margin="8dp"
+            android:padding="8dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginTop="16dp"
+                android:text="WORD"
+                android:textSize="14sp"
+                android:fontFamily="@font/pretendard_regular"/>
 
-    <!-- 단어 목록을 표시하는 리사이클러뷰 -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical" />
-</LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="16dp"
+                android:text="MEANING"
+                android:textSize="14sp"
+                android:fontFamily="@font/pretendard_regular"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="예문 보기"
+                android:visibility="invisible"
+                android:padding="8dp" />
+        </LinearLayout>
+        <!-- 단어 목록을 표시하는 리사이클러뷰 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scrollbars="vertical" />
+    </LinearLayout>
+    </LinearLayout>
+

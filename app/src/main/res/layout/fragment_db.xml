@@ -7,174 +7,96 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-        <Button
-            android:id="@+id/button_import_csv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CSV로 불러오기"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="55dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/ept_logo2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp" />
 
-        <Button
-            android:id="@+id/button_delete_all"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="전체삭제"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="Word List"
+            android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_word_list"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="8dp"
-            android:text="단어목록"
-            android:textSize="20sp"
-            android:fontFamily="@font/pretendard_bold"
-            android:background="#74AA9C"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/imageView"
+            android:layout_marginTop="16dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_tag"
-            android:layout_width="0dp"
-            app:layout_constraintHorizontal_weight="0.8"
-            android:layout_height="wrap_content"
-            android:text="TAG"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/button_word"
-            app:layout_constraintTop_toBottomOf="@id/button_word_list"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginTop="1dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/pretendard_semibold"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_word"
-            android:layout_width="0dp"
-            app:layout_constraintHorizontal_weight="1.2"
-            android:layout_height="wrap_content"
-            android:text="WORD"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/button_tag"
-            app:layout_constraintEnd_toStartOf="@id/button_meaning"
-            app:layout_constraintTop_toBottomOf="@id/button_word_list"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginTop="1dp"
-            android:textColor="@color/black"
-            android:enabled="false"
-            android:fontFamily="@font/pretendard_semibold"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_meaning"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1.2"
-            android:text="Meaning"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/button_word"
-            app:layout_constraintEnd_toStartOf="@id/button_add_remove"
-            app:layout_constraintTop_toBottomOf="@id/button_word_list"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginTop="1dp"
-            android:textColor="@color/black"
-            android:enabled="false"
-            android:fontFamily="@font/pretendard_semibold"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_add_remove"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
-            android:text="Button"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/button_meaning"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_word_list"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="1dp"
-            android:textColor="@color/black"
-            android:enabled="false"
-            android:fontFamily="@font/pretendard_semibold"/>
-
-        <!-- 새로 추가할 입력 칸과 버튼 -->
         <EditText
             android:id="@+id/addTagEditText"
-            android:layout_width="74dp"
+            android:layout_width="0dp"
             android:layout_height="38dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="1dp"
+            android:layout_marginTop="16dp"
             android:hint="TAG"
             android:gravity="center"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/addWordEditText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_tag"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:layout_constraintHorizontal_weight="0.8"
             android:fontFamily="@font/pretendard_regular"/>
 
         <EditText
             android:id="@+id/addWordEditText"
-            android:layout_width="112dp"
+            android:layout_width="0dp"
             android:layout_height="38dp"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="13dp"
             android:layout_marginEnd="1dp"
+            android:layout_marginTop="16dp"
             android:hint="WORD"
             android:gravity="center"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/addMeaningEditText"
             app:layout_constraintStart_toEndOf="@id/addTagEditText"
-            app:layout_constraintTop_toBottomOf="@id/button_word"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:layout_constraintHorizontal_weight="1.2"
             android:fontFamily="@font/pretendard_regular"/>
 
         <EditText
             android:id="@+id/addMeaningEditText"
-            android:layout_width="112dp"
+            android:layout_width="0dp"
             android:layout_height="38dp"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="1dp"
-            android:hint="뜻"
+            android:layout_marginTop="16dp"
+            android:hint="MEANING"
             android:gravity="center"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/addButton"
             app:layout_constraintStart_toEndOf="@id/addWordEditText"
-            app:layout_constraintTop_toBottomOf="@id/button_meaning"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:layout_constraintHorizontal_weight="1.2"
             android:fontFamily="@font/pretendard_regular"/>
 
         <Button
             android:id="@+id/addButton"
-            android:layout_width="89dp"
-            android:layout_height="47dp"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/word_btn"
+            android:fontFamily="@font/pretendard_regular"
             android:text="등록"
-            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/addMeaningEditText"
-            app:layout_constraintTop_toBottomOf="@id/button_add_remove"
-            android:fontFamily="@font/pretendard_regular"
-            android:background="@drawable/word_btn"
-            />
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:layout_constraintHorizontal_weight="1" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/addButton"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="0dp">
+            app:layout_constraintBottom_toTopOf="@id/csv_delete_buttons"
+            android:layout_marginBottom="20dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
@@ -183,9 +105,50 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="1sp"
                     android:layout_marginEnd="8dp"
-                    android:paddingBottom="200dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addButton"
-                    app:layout_constraintVertical_bias="0.139" />
+                    android:paddingBottom="200dp" />
         </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/csv_delete_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/recyclerView"
+            app:layout_constraintBottom_toTopOf="@id/button_word_list"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/button_import_csv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="CSV로 불러오기"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/button_delete_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="전체 삭제"/>
+        </LinearLayout>
+
+        <!-- 태그 별 단어 보기 button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_word_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="20dp"
+            android:text="태그 별 단어 보기"
+            android:textSize="20sp"
+            android:fontFamily="@font/pretendard_bold"
+            android:background="#74AA9C"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

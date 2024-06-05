@@ -48,16 +48,17 @@
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="0dp"
         android:gravity="center"
         android:text="삭제"
+        android:fontFamily="@font/pretendard_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:background="@drawable/word_btn"/>
+        android:background="@drawable/word_btn_del"/>
 
     <!--    EditText...-->
 
@@ -69,6 +70,7 @@
         android:layout_marginEnd="8dp"
         android:gravity="center"
         android:hint="TAG"
+        android:fontFamily="@font/pretendard_regular"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/wordEditTextView"
@@ -85,6 +87,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:hint="WORD"
+        android:fontFamily="@font/pretendard_regular"
         android:textSize="15sp"
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@id/meaningEditTextView"
@@ -100,6 +103,7 @@
         android:layout_marginEnd="8dp"
         android:gravity="center"
         android:hint="MEANING"
+        android:fontFamily="@font/pretendard_regular"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/doneButton"
@@ -110,16 +114,16 @@
     <Button
         android:id="@+id/doneButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="0dp"
         android:gravity="center"
         android:text="수정완료"
-        android:textSize="12sp"
+        android:fontFamily="@font/pretendard_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:background="@drawable/word_btn"/>
+        android:background="@drawable/word_btn_mod"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
