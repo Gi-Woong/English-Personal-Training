@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="@color/black"
+        android:background="#676767"
         android:orientation="vertical">
 
         <TextView
@@ -23,19 +23,21 @@
             android:layout_width="wrap_content"
             android:textSize="20sp"
             android:layout_marginBottom="5dp"
-            android:text="문제.1"
+            android:text="Q1>"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_semibold"
-            android:textColor="#676767"/>
+            android:textColor="#2F2F2F"/>
 
         <TextView
             android:id="@+id/meaningText"
             android:layout_width="wrap_content"
-            android:textSize="40sp"
-            android:layout_marginBottom="20dp"
-            android:text="Meaning"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_bold"/>
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="Meaning"
+            android:textSize="40sp"
+            android:paddingBottom="7dp"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,5 +75,4 @@
                 android:fontFamily="@font/pretendard_semibold"/>
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
