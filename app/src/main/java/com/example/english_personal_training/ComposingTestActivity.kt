@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.english_personal_training.data.Item
 import com.example.english_personal_training.data.ItemDatabase
 import com.example.english_personal_training.databinding.ActivityComposingTestBinding
 import kotlinx.coroutines.Dispatchers
@@ -133,11 +134,13 @@ class ComposingTestActivity : AppCompatActivity() {
                         }
                         return@launch
                     }
+                    val randomWords = getRandomWordsFromDatabase(selectedSet, problemCount)
 
                     val resultIntent = Intent().apply {
                         putExtra("PROBLEM_COUNT", problemCount)
                         putExtra("SELECTED_TYPE", selectedType)
                         putExtra("SELECTED_SET", selectedSet)
+                        putParcelableArrayListExtra("RANDOM_WORDS", ArrayList(randomWords))
                     }
                     setResult(RESULT_OK, resultIntent)
                     finish()
@@ -151,7 +154,13 @@ class ComposingTestActivity : AppCompatActivity() {
             }
         }
     }
-
+    private suspend fun getRandomWordsFromDatabase(tag: String, count: Int): List<Item> {
+        return withContext(Dispatchers.IO) {
+            val db = ItemDatabase.getDatabase(applicationContext)
+            val items = db.itemDao().getAllItems().filter { it.tag == tag }
+            items.shuffled().take(count)
+        }
+    }
     private suspend fun getTagsFromDatabase(): List<String> {
         return withContext(Dispatchers.IO) {
             val db = ItemDatabase.getDatabase(applicationContext)
