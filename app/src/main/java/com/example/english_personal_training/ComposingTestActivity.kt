@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.english_personal_training.data.Item
 import com.example.english_personal_training.data.ItemDatabase
 import com.example.english_personal_training.databinding.ActivityComposingTestBinding
 import kotlinx.coroutines.Dispatchers
@@ -32,8 +31,8 @@ class ComposingTestActivity : AppCompatActivity() {
         // 팝업창 크기 설정
         val window = window
         val layoutParams = window.attributes
-        layoutParams.width = (resources.displayMetrics.widthPixels * 0.9).toInt() // 너비를 화면 너비의 90%로 설정
-        layoutParams.height = (resources.displayMetrics.heightPixels * 0.8).toInt() // 높이를 화면 높이의 80%로 설정
+        layoutParams.width = (resources.displayMetrics.widthPixels * 0.9).toInt()
+        layoutParams.height = (resources.displayMetrics.heightPixels * 0.8).toInt()
         window.attributes = layoutParams
 
         // 터치 이벤트를 설정하여 특정 영역을 제외한 나머지 영역 터치를 무시
@@ -89,7 +88,6 @@ class ComposingTestActivity : AppCompatActivity() {
         }
 
         // 테스트 시작 버튼
-
         binding.testStart.setOnClickListener {
             val problemCountStr = binding.testProb.text.toString()
             problemCount = problemCountStr.toIntOrNull() ?: -1
@@ -136,13 +134,10 @@ class ComposingTestActivity : AppCompatActivity() {
                         return@launch
                     }
 
-                    val randomWords = getRandomWordsFromDatabase(selectedSet, problemCount)
-
                     val resultIntent = Intent().apply {
                         putExtra("PROBLEM_COUNT", problemCount)
                         putExtra("SELECTED_TYPE", selectedType)
                         putExtra("SELECTED_SET", selectedSet)
-                        putParcelableArrayListExtra("RANDOM_WORDS", ArrayList(randomWords))
                     }
                     setResult(RESULT_OK, resultIntent)
                     finish()
@@ -156,13 +151,7 @@ class ComposingTestActivity : AppCompatActivity() {
             }
         }
     }
-    private suspend fun getRandomWordsFromDatabase(tag: String, count: Int): List<Item> {
-        return withContext(Dispatchers.IO) {
-            val db = ItemDatabase.getDatabase(applicationContext)
-            val items = db.itemDao().getAllItems().filter { it.tag == tag }
-            items.shuffled().take(count)
-        }
-    }
+
     private suspend fun getTagsFromDatabase(): List<String> {
         return withContext(Dispatchers.IO) {
             val db = ItemDatabase.getDatabase(applicationContext)
@@ -170,8 +159,6 @@ class ComposingTestActivity : AppCompatActivity() {
             tags
         }
     }
-
-
 
     private suspend fun getWordCountFromDatabase(tag: String): Int {
         return withContext(Dispatchers.IO) {

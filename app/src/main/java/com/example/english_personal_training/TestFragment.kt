@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.english_personal_training.data.Item
@@ -24,8 +23,8 @@ import com.example.englishquiz.WordTestItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.random.Random
 
+@Suppress("DEPRECATION")
 class TestFragment : Fragment() {
 
     private lateinit var binding: FragmentTestBinding
@@ -34,6 +33,7 @@ class TestFragment : Fragment() {
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
     private var totalSelected = 0
+    private var selectedType: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,7 +76,7 @@ class TestFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_COMPOSING_TEST && resultCode == AppCompatActivity.RESULT_OK) {
             val problemCount = data?.getIntExtra("PROBLEM_COUNT", 0) ?: 0
-            val selectedType = data?.getStringExtra("SELECTED_TYPE") ?: ""
+            selectedType = data?.getStringExtra("SELECTED_TYPE") ?: ""
             val selectedSet = data?.getStringExtra("SELECTED_SET") ?: ""
             val randomWords = data?.getParcelableArrayListExtra<Item>("RANDOM_WORDS") ?: emptyList()
 
@@ -109,7 +109,7 @@ class TestFragment : Fragment() {
 
     private fun initRecyclerView(wordList: List<WordTestItem>) {
         this.wordList = wordList
-        val wordAdapter = WordAdapter(wordList) { word, option ->
+        val wordAdapter = WordAdapter(wordList, selectedType) { word, option ->
             val toastMessage = if (word == option) { "정답입니다!" } else { "오답입니다!" }
             val toast = Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT)
             toast.show()
