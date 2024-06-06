@@ -1,3 +1,4 @@
+import android.app.AlertDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -95,17 +96,29 @@ class WordSetFragment : Fragment() {
 
         // 전체삭제 버튼 listener 처리
         binding.buttonDeleteAll.setOnClickListener {
-            itemViewModel.deleteAll()
-            // deleteAll 호출 후 즉시 LiveData를 관찰하여 RecyclerView를 업데이트
-            itemViewModel.allItems.observe(viewLifecycleOwner, { items ->
-                items?.let { adapter.updateItems(it) }
-            })
+            // 다이얼로그를 표시하여 사용자에게 확인을 받음
+            showConfirmationDialog()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("전체 삭제")
+            .setMessage("정말 전체 삭제하시겠습니까?\n모든 단어가 삭제됩니다.")
+            .setPositiveButton("YES") { dialog, _ ->
+                // "YES"를 누르면 전체 삭제 수행
+                itemViewModel.deleteAll()
+                dialog.dismiss()
+            }
+            .setNegativeButton("NO") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun parseCsv(context: Context, uri: Uri): List<Item> {
