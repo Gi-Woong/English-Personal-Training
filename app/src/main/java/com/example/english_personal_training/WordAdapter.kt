@@ -87,20 +87,21 @@ class WordAdapter(
         )
 
         // 모든 버튼을 초기 상태로 설정
+        val darkGray = Color.rgb(64, 64, 64)
         buttons.forEach {
-            it.setBackgroundColor(Color.GRAY) // 초기 배경색으로 설정
+            it.setBackgroundColor(darkGray) // 초기 배경색을 어두운 회색으로 설정
         }
 
         currentItem.options.forEachIndexed { index, option ->
             buttons[index].text = option
             buttons[index].setOnClickListener {
-                currentItem.userChoice = if (currentItem.userChoice == option) {
-                    it.setBackgroundColor(Color.GRAY) // 선택 해제
-                    null
+                if (currentItem.userChoice == option) {
+                    it.setBackgroundColor(darkGray) // 선택 해제
+                    currentItem.userChoice = null
                 } else {
-                    buttons.forEach { btn -> btn.setBackgroundColor(Color.GRAY) } // 모든 버튼 초기화
+                    buttons.forEach { btn -> btn.setBackgroundColor(darkGray) } // 모든 버튼 초기화
                     it.setBackgroundColor(Color.GREEN) // 선택 시 배경색 변경
-                    option
+                    currentItem.userChoice = option
                 }
                 onOptionClicked(currentItem.word, option)
             }
