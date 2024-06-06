@@ -3,63 +3,75 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:gravity="center"
-    android:padding="10dp"
+    android:background="#676767"
+    android:padding="3dp"
+    android:layout_margin ="10dp"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_gravity="left"
-        android:id="@+id/numberText"
-        android:layout_width="wrap_content"
-        android:textSize="20sp"
-        android:layout_marginBottom="5dp"
-        android:text="문제.1"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/pretendard_semibold"
-        android:textColor="#676767"/>
-
-    <TextView
-        android:id="@+id/meaningText"
-        android:layout_width="wrap_content"
-        android:textSize="40sp"
-        android:layout_marginBottom="20dp"
-        android:text="Meaning"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/pretendard_bold"/>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="20dp">
-        <Button
-            android:layout_marginEnd="20dp"
-            android:id="@+id/optionButton1"
+        android:gravity="center"
+        android:background="@color/black"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="left"
+            android:id="@+id/numberText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_semibold"/>
-        <Button
-            android:id="@+id/optionButton2"
-            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginBottom="5dp"
+            android:text="문제.1"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_semibold"
-            android:textColor="#74AA9C"/>
+            android:textColor="#676767"/>
+
+        <TextView
+            android:id="@+id/meaningText"
+            android:layout_width="wrap_content"
+            android:textSize="40sp"
+            android:layout_marginBottom="20dp"
+            android:text="Meaning"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_bold"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+            <Button
+                android:layout_marginEnd="20dp"
+                android:id="@+id/optionButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_semibold"/>
+            <Button
+                android:id="@+id/optionButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_semibold"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/optionButton3"
+                android:layout_marginEnd="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_semibold"/>
+            <Button
+                android:layout_marginBottom="30dp"
+                android:id="@+id/optionButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_semibold"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/optionButton3"
-            android:layout_marginEnd="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_semibold"/>
-        <Button
-            android:layout_marginBottom="30dp"
-            android:id="@+id/optionButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_semibold"/>
-    </LinearLayout>
 </LinearLayout>
