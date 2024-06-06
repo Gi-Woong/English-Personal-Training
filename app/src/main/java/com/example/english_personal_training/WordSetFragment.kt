@@ -1,4 +1,3 @@
-
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -9,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.english_personal_training.FastItemAnimator
 import com.example.english_personal_training.R
 import com.example.english_personal_training.WordSetAdapter
 import com.example.english_personal_training.data.Item
@@ -47,6 +47,9 @@ class WordSetFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = WordSetAdapter(mutableListOf())
         binding.recyclerView.adapter = adapter
+
+        // Set the custom item animator
+        binding.recyclerView.itemAnimator = FastItemAnimator()
 
         // ViewModelProvider로 itemViewModel 초기화
         val factory = ItemViewModelFactory(requireActivity().application)
