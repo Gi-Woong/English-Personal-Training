@@ -15,6 +15,7 @@
         app:srcCompat="@drawable/ept_logo1" />
 
     <Button
+        android:id="@+id/button_how_to_use"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
