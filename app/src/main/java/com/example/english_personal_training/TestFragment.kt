@@ -81,19 +81,13 @@ class TestFragment : Fragment() {
             val randomWords = data?.getParcelableArrayListExtra<Item>("RANDOM_WORDS") ?: emptyList()
 
             // 가져온 데이터로 테스트 화면 초기화
-            lifecycleScope.launch {
-                val words = getWordsFromDatabase(selectedSet)
-                val wordList = words.map {
-                    WordTestItem(
-                        it.word,
-                        it.meaning,
-                        generateOptions(it.word, words.map { it.word })
-                    )
-                }.take(problemCount)
-                initRecyclerView(wordList)
+            val wordList = randomWords.map {
+                WordTestItem(it.word, it.meaning, generateOptions(it.word, randomWords.map { it.word }))
+            }
+            initRecyclerView(wordList)
             }
         }
-    }
+
 
     private suspend fun getWordsFromDatabase(tag: String): List<Item> {
         return withContext(Dispatchers.IO) {
