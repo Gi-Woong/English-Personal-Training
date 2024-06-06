@@ -11,6 +11,7 @@ import com.example.english_personal_training.data.ItemViewModel
 class WordSetAdapter(private var itemList: MutableList<Item>) : RecyclerView.Adapter<WordSetAdapter.ItemViewHolder>() {
 
     private lateinit var itemViewModel: ItemViewModel
+    private var editingPosition: Int? = null
 
     init {
         setHasStableIds(true)
@@ -26,12 +27,23 @@ class WordSetAdapter(private var itemList: MutableList<Item>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(itemList[position])
+        holder.bind(itemList[position], position == editingPosition)
+
         holder.itemView.setOnClickListener {
-            holder.toggleEditMode()
+            if (editingPosition == position) {
+                holder.toggleEditMode()
+                editingPosition = null
+            } else {
+                val previousEditingPosition = editingPosition
+                editingPosition = position
+                notifyItemChanged(previousEditingPosition ?: -1)
+                notifyItemChanged(position)
+            }
         }
+
         holder.binding.doneButton.setOnClickListener {
             holder.toggleEditMode()
+            editingPosition = null
             // 수정된 내용을 TextView에 반영
             holder.tagTextView.text = holder.tagEditTextView.text
             holder.wordTextView.text = holder.wordEditTextView.text
@@ -51,7 +63,6 @@ class WordSetAdapter(private var itemList: MutableList<Item>) : RecyclerView.Ada
             val currentItem = itemList[position]
             itemViewModel.delete(currentItem)
         }
-
     }
 
     override fun getItemCount(): Int = itemList.size
@@ -70,7 +81,7 @@ class WordSetAdapter(private var itemList: MutableList<Item>) : RecyclerView.Ada
         val meaningEditTextView = binding.meaningEditTextView
         val doneButton = binding.doneButton
 
-        fun bind(item: Item) {
+        fun bind(item: Item, isEditMode: Boolean) {
             // TextView에 텍스트 설정
             tagTextView.text = item.tag
             wordTextView.text = item.word
@@ -81,14 +92,14 @@ class WordSetAdapter(private var itemList: MutableList<Item>) : RecyclerView.Ada
             wordEditTextView.setText(item.word)
             meaningEditTextView.setText(item.meaning)
 
-            // 초기에는 EditText를 보이지 않도록 설정
-            tagTextView.visibility = View.VISIBLE
-            wordTextView.visibility = View.VISIBLE
-            meaningTextView.visibility = View.VISIBLE
-            tagEditTextView.visibility = View.GONE
-            wordEditTextView.visibility = View.GONE
-            meaningEditTextView.visibility = View.GONE
-            doneButton.visibility = View.GONE
+            // EditText를 보이거나 숨기도록 설정
+            tagTextView.visibility = if (isEditMode) View.GONE else View.VISIBLE
+            wordTextView.visibility = if (isEditMode) View.GONE else View.VISIBLE
+            meaningTextView.visibility = if (isEditMode) View.GONE else View.VISIBLE
+            tagEditTextView.visibility = if (isEditMode) View.VISIBLE else View.GONE
+            wordEditTextView.visibility = if (isEditMode) View.VISIBLE else View.GONE
+            meaningEditTextView.visibility = if (isEditMode) View.VISIBLE else View.GONE
+            doneButton.visibility = if (isEditMode) View.VISIBLE else View.GONE
         }
 
         fun toggleEditMode() {
@@ -110,4 +121,3 @@ class WordSetAdapter(private var itemList: MutableList<Item>) : RecyclerView.Ada
         notifyDataSetChanged()
     }
 }
-
