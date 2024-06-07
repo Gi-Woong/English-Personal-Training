@@ -1,11 +1,14 @@
 import android.graphics.Color
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.english_personal_training.BuildConfig
+import com.example.english_personal_training.R
 import com.example.english_personal_training.databinding.ItemWordTestBinding
 import com.example.englishquiz.Message
 import com.example.englishquiz.OpenAIRequest
@@ -63,11 +66,17 @@ class WordAdapter(
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val currentItem = wordList[position]
-        holder.binding.numberText.text = "문제.${position + 1}" // 각 아이템의 번호를 설정
+        holder.binding.numberText.text = "Q${position + 1}>" // 각 아이템의 번호를 설정
 
         if (selectedType == "예문") {
             holder.binding.meaningText.text = "예문 로딩 중..."
             holder.binding.meaningText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+            holder.binding.meaningText.gravity = View.TEXT_ALIGNMENT_CENTER // 텍스트를 가운데 정렬
+            holder.binding.meaningText.setPadding(16, 16, 16, 16) // 패딩 설정
+            // 마진 설정
+            val layoutParams = holder.binding.meaningText.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.setMargins(40, 16, 16, 16) // left, top, right, bottom 마진 설정
+            holder.binding.meaningText.layoutParams = layoutParams
 
             if (examplesMap.containsKey(currentItem.word)) {
                 holder.binding.meaningText.text = HtmlCompat.fromHtml(examplesMap[currentItem.word] ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -77,6 +86,12 @@ class WordAdapter(
         } else {
             holder.binding.meaningText.text = currentItem.meaning
             holder.binding.meaningText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40f)
+            holder.binding.meaningText.gravity = View.TEXT_ALIGNMENT_CENTER // 텍스트를 가운데 정렬
+            holder.binding.meaningText.setPadding(16, 16, 16, 16) // 패딩 설정
+            // 마진 설정
+            val layoutParams = holder.binding.meaningText.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.setMargins(40, 16, 16, 16) // left, top, right, bottom 마진 설정
+            holder.binding.meaningText.layoutParams = layoutParams
         }
 
         val buttons = listOf(
@@ -87,7 +102,7 @@ class WordAdapter(
         )
 
         // 모든 버튼을 초기 상태로 설정
-        val darkGray = Color.rgb(64, 64, 64)
+        val darkGray = Color.rgb(67, 67, 67)
         buttons.forEach {
             it.setBackgroundColor(darkGray) // 초기 배경색을 어두운 회색으로 설정
         }
@@ -100,7 +115,7 @@ class WordAdapter(
                     currentItem.userChoice = null
                 } else {
                     buttons.forEach { btn -> btn.setBackgroundColor(darkGray) } // 모든 버튼 초기화
-                    it.setBackgroundColor(Color.GREEN) // 선택 시 배경색 변경
+                    it.setBackgroundColor(ContextCompat.getColor(it.context, R.color.mint)) // 선택 시 배경색 변경
                     currentItem.userChoice = option
                 }
                 onOptionClicked(currentItem.word, option)
