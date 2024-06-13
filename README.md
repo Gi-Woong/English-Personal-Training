@@ -9,8 +9,7 @@ MC_Project는 사용자가 영어 단어를 보다 효과적으로 암기할 수
 
 
 ### 한장 소개
-![alt text](image.png)
-
+![onepageview.png](onepageview.png)
 
 
 ## 사용방법
