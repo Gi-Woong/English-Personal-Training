@@ -65,9 +65,9 @@ class WordListAdapter : RecyclerView.Adapter<WordListAdapter.WordListViewHolder>
         if (loadingMap[word.word] == true) return
 
         // Check if the word and meaning are valid (simple validation)
-        if (!word.word.matches(Regex("^[a-zA-ZÀ-ÿ\\s,-]+$")) || !word.meaning.matches(Regex("^[가-힣,~;\\s]+\$"))) {
+        if (!word.word.matches(Regex("^[a-zA-ZÀ-ÿ()~;\\s,-]+$")) || !word.meaning.matches(Regex("^[가-힣,~;()\\s]+\$"))) {
             CoroutineScope(Dispatchers.Main).launch {
-                examplesTextView.text = "Failed to load example."
+                examplesTextView.text = "Failed to load example.(단어, 뜻 폼이 올바르게 작성되었는지 확인하세요.)"
                 examplesTextView.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
                 setButtonText(showExamplesButton, "예문 접기")
