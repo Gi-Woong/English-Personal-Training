@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         
         <h5>CSV</h5>
         CSV(Comma-Separated Values)파일로도 간편하게 단어를 불러올 수 있습니다.<br>
-        (단, CSV의 헤더는 <code>|tag|word|meaning|</code>으로 이루어져 있어야 합니다.<br>
+        (단, CSV의 헤더는 <code>|tag|word|meaning|</code>으로 이루어져 있어야 하며, UTF-8 형식이여야 합니다.<br>
         모든 단어를 삭제해야 할 경우, 전체 삭제 버튼을 눌러보세요.<br>
             
         <h5>태그별 단어 보기</h5>

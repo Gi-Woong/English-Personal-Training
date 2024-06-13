@@ -1,5 +1,6 @@
 package com.example.english_personal_training
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ class WordSetAdapter(private var itemList: MutableList<Item>) : RecyclerView.Ada
         return ItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.bind(itemList[position], position == editingPosition)
 
         holder.itemView.setOnClickListener {

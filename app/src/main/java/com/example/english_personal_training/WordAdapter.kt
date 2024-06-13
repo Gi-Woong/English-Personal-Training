@@ -141,6 +141,7 @@ class WordAdapter(
                         Provide an example sentence for the word '${word}' in English. 
                         The sentence should clearly demonstrate the meaning of the word '${word}'. 
                         Make sure the sentence is clear and grammatically correct. 
+                        You must include the ${word} in example sentence(double check: this is most important).
                         Bold the word '${word}' in the English sentence using HTML <b> tags.
                     """.trimIndent())
                 )
