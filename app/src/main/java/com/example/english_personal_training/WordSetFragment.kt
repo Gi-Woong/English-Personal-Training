@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -28,9 +29,14 @@ class WordSetFragment : Fragment() {
     // CSV file launcher
     private val csvFileLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
-            val items = parseCsv(requireContext(), it)
-            itemViewModel.insertItems(items)
-        }
+            try {
+                val items = parseCsv(requireContext(), it)
+                itemViewModel.insertItems(items)
+                Toast.makeText(requireContext(), "CSV 파일을 성공적으로 불러왔습니다.", Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "CSV 파일을 불러오지 못했습니다: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        } ?: Toast.makeText(requireContext(), "CSV 파일이 선택되지 않았습니다.", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateView(
@@ -127,7 +133,7 @@ class WordSetFragment : Fragment() {
 
         inputStream?.use { stream ->
             val reader = CsvReader()
-            val result = reader.readAllWithHeader(inputStream)
+            val result = reader.readAllWithHeader(stream)
 
             result.forEach { row ->
                 val tag = row["tag"]?.trim()
